@@ -34,7 +34,7 @@ io.on('connection', function(socket){
     
   socket.on('sid', function(socketID){
 	clients.push(socketID);
-	socket.emit('playerposition', playersx[clients.findIndex(findClient(socketID))], playersy[clients.findIndex(findClient(socketID))]);
+	socket.emit('playerposition', playersx[clients.indexOf(socketID)], playersy[clients.indexOf(socketID]);
   });
 	
   for(var n = 0; n < clickx.length; n++){
@@ -55,8 +55,8 @@ io.on('connection', function(socket){
 
 	
   socket.on('left', function(socketID){
-	playersx[clients.findIndex(findClient(socketID))] += 1;
-	socket.emit('left', socketID, x, y);
+	playersx[clients.indexOf(socketID)] += 1;
+	socket.emit('left', socketID, playersx[clients.indexOf(socketID)], playersy[clients.indexOf(socketID)]);
   });
  
 });
@@ -65,8 +65,3 @@ io.on('connection', function(socket){
 http.listen(port, function(){
   console.log('listening on *:' + port);
 });
-
-
-function findClient(socketID){
-	return element == socketID;
-}
