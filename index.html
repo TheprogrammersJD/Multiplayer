@@ -10434,11 +10434,14 @@ function setup(){
 	createCanvas(widthorheight, widthorheight);
 	background(100);
 }
-
+	
+var socketID = Math.round((Math.random() * 10000))*Math.round(Math.random() * 10);	
 
 function draw(){
 	//background(100);
-
+	if(keyIsDown(LEFT_ARROW)){
+		left();
+	}
 }
 function random(min, max){
 	numtoreturn = max - min;
@@ -10450,8 +10453,6 @@ function random(min, max){
 	return numtoreturn;
 	//return Math.floor(Math.random()*(max-min))+min;
 }
-var mx = 0;
-var my = 0;
 var mousedata;
 function mouseClicked(){
 	fill(0, 0, 255);
@@ -10461,20 +10462,24 @@ function mouseClicked(){
 
 var socket = io();
 
+socket.emit('sid', socketID);
+
 function click(coordx, coordy){
 	socket.emit('click', coordx, coordy);
 	return false;
 }
+function left(){
+	socket.emit('left', socketID);
+	return false;
+}
 	 
 socket.on('click', function(x, y){
-	//console.log(i1 + ", " + i2);
-	//mx = i1;
-	//my = i2;
-	mx++;
-	mx--;
-	my++;
-	my--;
 	fill(255, 0, 0);
+	ellipse(x, y, widthorheight/10, widthorheight/10);
+});
+	
+socket.on('left', function(socketID, x, y){
+	fill(0, 0, 0);
 	ellipse(x, y, widthorheight/10, widthorheight/10);
 });
 </script>
