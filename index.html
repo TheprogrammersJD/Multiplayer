@@ -10462,14 +10462,14 @@ function mouseClicked(){
 
 var socket = io();
 
-socket.emit('sid', socketID);
+//socket.emit('sid', socketID);
 
 function click(coordx, coordy){
 	socket.emit('click', coordx, coordy);
 	return false;
 }
 function left(){
-	socket.emit('left', socketID);
+	//socket.emit('left', socketID);
 	return false;
 }
 	 
